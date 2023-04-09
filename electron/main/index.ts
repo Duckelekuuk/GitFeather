@@ -1,6 +1,8 @@
 import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
+import { menu } from './menu';
+import { initSplashScreen } from "@trodi/electron-splashscreen";
 
 // The built directory structure
 //
@@ -41,8 +43,9 @@ const url = process.env.VITE_DEV_SERVER_URL
 const indexHtml = join(process.env.DIST, 'index.html')
 
 async function createMainWindow() {
-  win = new BrowserWindow({
-    title: 'Main window',
+  const windowOptions = {
+    title: 'GitFeather',
+    show: false,
     icon: join(process.env.PUBLIC, 'favicon.ico'),
     webPreferences: {
       preload,
@@ -52,7 +55,24 @@ async function createMainWindow() {
       nodeIntegration: false,
       contextIsolation: false,
     },
-  })
+  };
+
+  win = initSplashScreen({
+    windowOpts: windowOptions,
+    templateUrl: join(process.env.PUBLIC, 'splash.html'),
+    minVisible: 5000,
+    splashScreenOpts: {
+      width: 300,
+      height: 500,
+      show: true,
+      alwaysOnTop: true,
+      icon: join(process.env.PUBLIC, 'favicon.ico'),
+    }
+  });
+
+
+  console.log("splash");
+
 
   if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
     win.loadURL(url)
@@ -77,7 +97,7 @@ async function createMainWindow() {
 app.whenReady().then(async () => {
   await createMainWindow();
 
-  Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(menu);
 });
 
 app.on('window-all-closed', () => {
