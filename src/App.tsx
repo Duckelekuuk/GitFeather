@@ -1,13 +1,10 @@
-import { useState } from 'react'
-import './App.scss'
+import { Component } from 'react';
+import './App.scss';
 
-function App() {
-
-  return (
-    <div className='App'>
-      <h1>Git feather</h1>
-    </div>
-  )
+export class App extends Component {
+  render() {
+    return <div className={'App'}></div>;
+  }
 }
 
-export default App
+export default App;
