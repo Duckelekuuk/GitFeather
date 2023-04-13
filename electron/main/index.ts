@@ -43,6 +43,11 @@ const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, 'index.html');
 
 async function createMainWindow() {
+
+  if (app.commandLine.hasSwitch('disable-gpu')) {
+    app.disableHardwareAcceleration();
+  }
+
   const windowOptions = {
     title: 'GitFeather',
     show: false,
