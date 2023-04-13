@@ -24,7 +24,7 @@
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react-router-dom": "^6.10.0",
-    "sort-by": "^1.2.0"
+    "sort-by": "^0.0.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.31.0",
@@ -35,7 +35,7 @@
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
     "electron": "^23.2.1",
-    "electron-builder": "^23.6.0",
+    "electron-builder": "^24.2.0",
     "eslint": "^8.37.0",
     "eslint-plugin-react": "^7.32.2",
     "postcss": "^8.4.21",
