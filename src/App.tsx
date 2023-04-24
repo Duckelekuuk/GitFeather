@@ -3,7 +3,7 @@ import './App.scss';
 
 export class App extends Component {
   render() {
-    return <div className={'App'}></div>;
+    return <div className={'App text-red-500'}>Hello</div>;
   }
 }
 
