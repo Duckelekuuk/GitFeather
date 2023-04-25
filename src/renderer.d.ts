@@ -1,13 +1,12 @@
-import { IpcRenderer } from "electron";
+import { OpenFolderResult } from '@shared/models/OpenFolderResult';
 
-export interface IElectronAPI {
-    on: (command, func?) => IpcRenderer;
-    send: (command, func?) => IpcRenderer;
-    invoke: (command, func?) => any;
+export interface IApi {
+    // openFolder: () => IpcRenderer;
+    openFolder: () => OpenFolderResult;
 }
 
 declare global {
     interface Window {
-        electron: IElectronAPI;
+        api: IApi;
     }
 }
