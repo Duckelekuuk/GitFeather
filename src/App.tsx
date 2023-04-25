@@ -12,7 +12,8 @@ export class App extends Component {
 
     async openFolder() {
         const openFolderResult = await window.api.openFolder();
-        console.log(openFolderResult);
+        const statusChanges = await window.api.getFileChanges();
+        console.log(openFolderResult, statusChanges);
     }
 }
 

@@ -1,9 +1,4 @@
-import { OpenFolderResult } from '@shared/models/OpenFolderResult';
-
-export interface IApi {
-    // openFolder: () => IpcRenderer;
-    openFolder: () => OpenFolderResult;
-}
+import { IApi } from '@shared/IApi';
 
 declare global {
     interface Window {

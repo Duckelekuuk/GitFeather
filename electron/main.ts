@@ -5,6 +5,8 @@ import { menu } from './settings/menu';
 import { initSplashScreen } from '@trodi/electron-splashscreen';
 import GitFeatherStore from './services/GitFeatherStore';
 import { OpenFolderResult } from '../shared/models/OpenFolderResult';
+import GitService from './services/GitService';
+import { FileChangeResults } from '../shared/models/StatusChangesResult';
 
 // The built directory structure
 //
@@ -38,13 +40,13 @@ if (!app.requestSingleInstanceLock()) {
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 const store = new GitFeatherStore();
+const gitService = new GitService(store.getCurrentFolder());
+
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(__dirname, 'preload.js');
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, 'index.html');
-
-global.browserWindow = win;
 
 async function createMainWindow() {
     if (app.commandLine.hasSwitch('disable-gpu')) {
@@ -143,8 +145,21 @@ ipcMain.handle('open-folder', async (_, arg): Promise<OpenFolderResult> => {
     console.log('directories selected', selectedFolder);
 
     store.setCurrentFolder(selectedFolder);
+    gitService.setCwd(selectedFolder);
 
     return {
         success: true
+    };
+});
+
+ipcMain.handle('file-changes', async (_, args): Promise<FileChangeResults> => {
+    const status = await gitService.getStatus();
+    return {
+        staged: status.staged,
+        created: status.created,
+        deleted: status.deleted,
+        ignored: status.ignored,
+        modified: status.modified,
+        not_added: status.not_added
     };
 });

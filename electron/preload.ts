@@ -13,5 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // 'ipcRenderer' will be available in index.js with the method 'window.electron'
 contextBridge.exposeInMainWorld('api', {
-    openFolder: () => ipcRenderer.invoke('open-folder')
+    openFolder: () => ipcRenderer.invoke('open-folder'),
+    getFileChanges: () => ipcRenderer.invoke('file-changes')
 });
