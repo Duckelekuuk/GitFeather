@@ -1,13 +1,20 @@
-import { useState } from 'react'
-import './App.scss'
+import { Component } from 'react';
+import './App.scss';
 
-function App() {
+export class App extends Component {
+    render() {
+        return (
+            <div className={'App '}>
+                <button onClick={() => this.openFolder()}>OpenFolder</button>
+            </div>
+        );
+    }
 
-  return (
-    <div className='App'>
-      <h1>Git feather</h1>
-    </div>
-  )
+    async openFolder() {
+        const openFolderResult = await window.api.openFolder();
+        const statusChanges = await window.api.getFileChanges();
+        console.log(openFolderResult, statusChanges);
+    }
 }
 
-export default App
+export default App;

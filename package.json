@@ -1,7 +1,7 @@
 {
   "name": "gitfeather",
   "version": "1.0.0",
-  "main": "dist-electron/main/index.js",
+  "main": "dist-electron/main.js",
   "description": "Electron Vite React boilerplate.",
   "author": "Duckelekuuk",
   "license": "MIT",
@@ -20,7 +20,13 @@
   },
   "dependencies": {
     "@trodi/electron-splashscreen": "^1.0.2",
-    "electron-updater": "^5.3.0"
+    "electron-store": "^8.1.0",
+    "electron-updater": "^5.3.0",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
+    "react-router-dom": "^6.10.0",
+    "simple-git": "^3.18.0",
+    "sort-by": "^0.0.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.31.0",
@@ -29,15 +35,19 @@
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.14",
     "electron": "^23.2.1",
-    "electron-builder": "^23.6.0",
+    "electron-builder": "^24.2.0",
     "eslint": "^8.37.0",
     "eslint-plugin-react": "^7.32.2",
+    "postcss": "^8.4.21",
+    "prettier": "2.8.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.58.3",
+    "tailwindcss": "^3.3.1",
     "typescript": "^4.9.5",
-    "vite": "^4.1.4",
+    "vite": "^4.3.1",
     "vite-electron-plugin": "^0.8.2",
     "vite-plugin-electron": "^0.11.1",
     "vite-plugin-electron-renderer": "^0.12.1"

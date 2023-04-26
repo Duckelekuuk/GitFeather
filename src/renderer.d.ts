@@ -1,13 +1,7 @@
-import { IpcRenderer } from "electron";
-
-export interface IElectronAPI {
-    on: (command, func?) => IpcRenderer;
-    send: (command, func?) => IpcRenderer;
-    invoke: (command, func?) => any;
-}
+import { IApi } from '@shared/IApi';
 
 declare global {
     interface Window {
-        electron: IElectronAPI;
+        api: IApi;
     }
 }
