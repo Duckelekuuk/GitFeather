@@ -16,3 +16,4 @@ contextBridge.exposeInMainWorld('api', {
     openFolder: () => ipcRenderer.invoke('open-folder'),
     getFileChanges: () => ipcRenderer.invoke('file-changes')
 });
+// Comment
