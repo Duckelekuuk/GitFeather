@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './App.scss';
 
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import ProjectOverview from '@/pages/ProjectOverview';

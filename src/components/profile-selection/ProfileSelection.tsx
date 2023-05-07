@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { CheckIcon } from '@heroicons/react/24/solid';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-export default class ProfileSelectionComponent extends Component<any, any> {
+export default class ProfileSelectionComponent extends Component {
     render() {
         return (
             <div className={'w-40 justify-self-end'}>
