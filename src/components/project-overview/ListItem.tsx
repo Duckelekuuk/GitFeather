@@ -14,9 +14,13 @@ export default class ListItem extends Component<ListItemProperties> {
         return (
             <div
                 {...this.props}
-                className={cx(this.props.className, 'h-12 flex pl-8 justify-between items-center', {
-                    'list-item__gradient': this.props.selected
-                })}
+                className={cx(
+                    this.props.className,
+                    'h-12 flex pl-8 justify-between cursor-pointer select-none items-center',
+                    {
+                        'list-item__gradient': this.props.selected
+                    }
+                )}
             >
                 {this.props.children}
                 {this.props.selected ? (

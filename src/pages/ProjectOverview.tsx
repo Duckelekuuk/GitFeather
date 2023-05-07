@@ -9,7 +9,7 @@ export default class ProjectOverview extends Component {
             <div className={'select-background w-screen h-screen flex justify-center items-center'}>
                 <div
                     className={
-                        'rounded-s w-4/6 h-4/6 drop-shadow-lg text-white bg-[#00040F] pop-shadow'
+                        'rounded-lg w-4/6 h-4/6 drop-shadow-lg text-white bg-slate-950 border-zinc-800 border-0 pop-shadow'
                     }
                 >
                     <header
