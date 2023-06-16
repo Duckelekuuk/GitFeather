@@ -7,6 +7,7 @@ import GitFeatherStore from './services/GitFeatherStore';
 import { OpenFolderResult } from '../shared/models/OpenFolderResult';
 import GitService from './services/GitService';
 import { FileChangeResults } from '../shared/models/StatusChangesResult';
+import { RecentProjectsResult } from '../shared/models/RecentProjectsResult';
 
 // The built directory structure
 //
@@ -163,5 +164,11 @@ ipcMain.handle('file-changes', async (event, args): Promise<FileChangeResults> =
         ignored: status.ignored,
         modified: status.modified,
         not_added: status.not_added
+    };
+});
+
+ipcMain.handle('recent-projects', async (event, args): Promise<RecentProjectsResult> => {
+    return {
+        projects: store.getRecentProjects()
     };
 });

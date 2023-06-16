@@ -45,6 +45,7 @@ export default class TabWindow extends Component<TabWindowProperties, TabWindowS
                 >
                     {pages.map((value, index) => (
                         <div
+                            key={index}
                             className={cx(
                                 'w-full h-12 flex pl-8 justify-between select-none items-center transition duration-75',
                                 'hover:bg-gray-100/[.1]',

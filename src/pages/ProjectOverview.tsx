@@ -30,18 +30,7 @@ export default class ProjectOverview extends Component {
                             <TabPage title={'Open'}>
                                 <TabWindow defaultPage={0} tabWidth={'w-1/3'}>
                                     <TabPage title={'Recents'}>
-                                        <ProjectList
-                                            projects={[
-                                                {
-                                                    name: 'OpenAudioMc',
-                                                    path: '~/Documents/OpenAudioMC'
-                                                },
-                                                {
-                                                    name: 'GitFeather',
-                                                    path: '~/Documents/GitFeather'
-                                                }
-                                            ]}
-                                        />
+                                        <ProjectList />
                                     </TabPage>
                                     <TabPage title={'Open folder'}></TabPage>
                                 </TabWindow>
