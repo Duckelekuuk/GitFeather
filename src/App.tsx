@@ -11,8 +11,7 @@ export class App extends Component {
         return (
             <div className={'App '}>
                 <button onClick={() => this.openFolder()}>OpenFolder</button>
-                {this.state.fileChangeResults !== undefined &&
-                    this.state.fileChangeResults?.modified.map((file) => <ul>{file}</ul>)}
+                {this.state.fileChangeResults !== undefined && this.state.fileChangeResults?.modified.map((file) => <ul>{file}</ul>)}
             </div>
         );
     }

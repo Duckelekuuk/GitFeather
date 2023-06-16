@@ -40,9 +40,7 @@ export default class TabWindow extends Component<TabWindowProperties, TabWindowS
 
         return (
             <div {...rest} className={`${this.props.className} flex w-full h-full`}>
-                <div
-                    className={`flex flex-col h-full border-solid border-r border-neutral-600 ${tabWidth}`}
-                >
+                <div className={`flex flex-col h-full border-solid border-r border-neutral-600 ${tabWidth}`}>
                     {pages.map((value, index) => (
                         <div
                             key={index}

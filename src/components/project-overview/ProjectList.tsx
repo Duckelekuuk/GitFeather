@@ -6,10 +6,7 @@ export interface ProjectListState {
     projects: ProjectDetails[];
 }
 
-export default class ProjectList extends Component<
-    HTMLAttributes<HTMLDivElement>,
-    ProjectListState
-> {
+export default class ProjectList extends Component<HTMLAttributes<HTMLDivElement>, ProjectListState> {
     constructor(props: HTMLAttributes<HTMLDivElement>) {
         super(props);
         this.state = {
@@ -41,10 +38,6 @@ export default class ProjectList extends Component<
             </div>
         ));
 
-        return (
-            <div className={'flex flex-col'}>
-                {this.state.projects.length == 0 ? emptyPlaceHolder : projectItems}
-            </div>
-        );
+        return <div className={'flex flex-col'}>{this.state.projects.length == 0 ? emptyPlaceHolder : projectItems}</div>;
     }
 }
