@@ -7,6 +7,7 @@ import GitFeatherStore from './services/GitFeatherStore';
 import { OpenFolderResult } from '../shared/models/OpenFolderResult';
 import GitService from './services/GitService';
 import { FileChangeResults } from '../shared/models/StatusChangesResult';
+import { RecentProjectsResult } from '../shared/models/RecentProjectsResult';
 
 // The built directory structure
 //
@@ -57,6 +58,8 @@ async function createMainWindow() {
         title: 'GitFeather',
         show: false,
         icon: join(process.env.PUBLIC, 'favicon.ico'),
+        width: 1200,
+        height: 800,
         webPreferences: {
             preload,
             // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -65,7 +68,7 @@ async function createMainWindow() {
             nodeIntegration: false,
             contextIsolation: true
         }
-    };
+    } as Electron.BrowserWindowConstructorOptions;
 
     win = initSplashScreen({
         windowOpts: windowOptions,
@@ -129,7 +132,7 @@ app.on('activate', () => {
     }
 });
 
-ipcMain.handle('open-folder', async (_, arg): Promise<OpenFolderResult> => {
+ipcMain.handle('open-folder', async (event, arg): Promise<OpenFolderResult> => {
     const result = await dialog.showOpenDialog(win, {
         properties: ['openDirectory']
     });
@@ -152,7 +155,7 @@ ipcMain.handle('open-folder', async (_, arg): Promise<OpenFolderResult> => {
     };
 });
 
-ipcMain.handle('file-changes', async (_, args): Promise<FileChangeResults> => {
+ipcMain.handle('file-changes', async (event, args): Promise<FileChangeResults> => {
     const status = await gitService.getStatus();
     return {
         staged: status.staged,
@@ -161,5 +164,11 @@ ipcMain.handle('file-changes', async (_, args): Promise<FileChangeResults> => {
         ignored: status.ignored,
         modified: status.modified,
         not_added: status.not_added
+    };
+});
+
+ipcMain.handle('recent-projects', async (event, args): Promise<RecentProjectsResult> => {
+    return {
+        projects: store.getRecentProjects()
     };
 });

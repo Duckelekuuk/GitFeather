@@ -19,7 +19,9 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.17",
     "@trodi/electron-splashscreen": "^1.0.2",
+    "classnames": "^2.3.2",
     "electron-store": "^8.1.0",
     "electron-updater": "^5.3.0",
     "localforage": "^1.10.0",

@@ -13,7 +13,7 @@ export default class GitService {
         });
     }
 
-    public setCwd(path: string) {
+    public setCwd(path: string): void {
         this.simpleGit.cwd(path);
     }
 
