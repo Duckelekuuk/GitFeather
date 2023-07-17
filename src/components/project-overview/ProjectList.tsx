@@ -15,8 +15,7 @@ export default class ProjectList extends Component<HTMLAttributes<HTMLDivElement
     }
 
     async componentDidMount() {
-        const recentProjects = await window.api.getRecentProjects();
-        this.setState({ projects: recentProjects.projects });
+        this.setState({ projects: [] });
     }
 
     render() {
@@ -32,6 +31,7 @@ export default class ProjectList extends Component<HTMLAttributes<HTMLDivElement
                     'flex flex-col h-12 pl-8 justify-center select-none',
                     'hover:bg-gray-100/[.1] hover:drop-shadow transition duration-75'
                 )}
+                onClick={() => this.openProject(project.path)}
             >
                 <div className={'text-sm'}>{project.name}</div>
                 <div className={'text-xs text-gray-500'}>{project.path}</div>
@@ -39,5 +39,9 @@ export default class ProjectList extends Component<HTMLAttributes<HTMLDivElement
         ));
 
         return <div className={'flex flex-col'}>{this.state.projects.length == 0 ? emptyPlaceHolder : projectItems}</div>;
+    }
+
+    openProject(projectPath: string): void {
+        // window.api.openProject(projectPath);
     }
 }

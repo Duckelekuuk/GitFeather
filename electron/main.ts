@@ -4,26 +4,15 @@ import { join } from 'node:path';
 import { menu } from './settings/menu';
 import { initSplashScreen } from '@trodi/electron-splashscreen';
 import GitFeatherStore from './services/GitFeatherStore';
-import { OpenFolderResult } from '../shared/models/OpenFolderResult';
+import { SelectFolderResult } from '../shared/models/SelectFolderResult';
 import GitService from './services/GitService';
 import { FileChangeResults } from '../shared/models/StatusChangesResult';
 import { RecentProjectsResult } from '../shared/models/RecentProjectsResult';
+import { IpcMethods } from './constants/ipc-methods';
 
-// The built directory structure
-//
-// ├─┬ dist-electron
-// │ ├─┬ main
-// │ │ └── index.js    > Electron-Main
-// │ └─┬ preload
-// │   └── index.js    > Preload-Scripts
-// ├─┬ dist
-// │ └── index.html    > Electron-Renderer
-//
 process.env.DIST_ELECTRON = __dirname;
 process.env.DIST = join(process.env.DIST_ELECTRON, 'dist');
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-    ? join(process.env.DIST_ELECTRON, '../public')
-    : process.env.DIST;
+process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, '../public') : process.env.DIST;
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration();
@@ -132,30 +121,30 @@ app.on('activate', () => {
     }
 });
 
-ipcMain.handle('open-folder', async (event, arg): Promise<OpenFolderResult> => {
+ipcMain.handle(IpcMethods.SELECT_FOLDER, async (event, _): Promise<SelectFolderResult> => {
     const result = await dialog.showOpenDialog(win, {
         properties: ['openDirectory']
     });
 
     if (result.canceled) {
         return {
-            success: false
+            path: null
         };
     }
 
     const selectedFolder = result.filePaths[0];
-
-    console.log('directories selected', selectedFolder);
-
-    store.setCurrentFolder(selectedFolder);
-    gitService.setCwd(selectedFolder);
-
     return {
-        success: true
+        path: selectedFolder
     };
 });
 
-ipcMain.handle('file-changes', async (event, args): Promise<FileChangeResults> => {
+ipcMain.handle(IpcMethods.OPEN_PROJECT, async (event, path): Promise<void> => {
+    store.setCurrentFolder(path);
+    gitService.setCwd(path);
+    console.log('Open project: ' + path);
+});
+
+ipcMain.handle(IpcMethods.GIT_FILE_CHANGES, async (event, _): Promise<FileChangeResults> => {
     const status = await gitService.getStatus();
     return {
         staged: status.staged,
@@ -169,6 +158,7 @@ ipcMain.handle('file-changes', async (event, args): Promise<FileChangeResults> =
 
 ipcMain.handle('recent-projects', async (event, args): Promise<RecentProjectsResult> => {
     return {
-        projects: store.getRecentProjects()
+        projects: []
+        // projects: store.getRecentProjects()
     };
 });

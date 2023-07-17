@@ -51,7 +51,7 @@ export default class TabWindow extends Component<TabWindowProperties, TabWindowS
                                     'bg-gray-100/[.04] drop-shadow': activePageIndex === index
                                 }
                             )}
-                            onClick={() => this.setState({ activePage: index })}
+                            onClick={(event) => this.handleClick(value, index, event)}
                         >
                             {value?.props.title}
                         </div>
@@ -60,5 +60,10 @@ export default class TabWindow extends Component<TabWindowProperties, TabWindowS
                 <div className={'flex-grow'}>{activePage?.props.children}</div>
             </div>
         );
+    }
+
+    handleClick(page: React.ReactElement<React.HTMLAttributes<HTMLDivElement>>, index: number, event: React.MouseEvent<HTMLDivElement>): void {
+        this.setState({ activePage: index });
+        page.props.onClick?.call(page, event);
     }
 }

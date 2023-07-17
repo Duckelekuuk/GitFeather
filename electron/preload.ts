@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
+import { IpcMethods } from './constants/ipc-methods';
 
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
@@ -13,8 +14,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // 'ipcRenderer' will be available in index.js with the method 'window.electron'
 contextBridge.exposeInMainWorld('api', {
-    openFolder: () => ipcRenderer.invoke('open-folder'),
-    getFileChanges: () => ipcRenderer.invoke('file-changes'),
-    getRecentProjects: () => ipcRenderer.invoke('recent-projects')
+    openFolder: () => ipcRenderer.invoke(IpcMethods.SELECT_FOLDER),
+    getFileChanges: () => ipcRenderer.invoke(IpcMethods.GIT_FILE_CHANGES),
+    openProject: (path: string) => ipcRenderer.invoke(IpcMethods.OPEN_PROJECT, path)
+    // getRecentProjects: () => ipcRenderer.invoke('recent-projects')
 });
 // Comment

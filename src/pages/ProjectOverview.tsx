@@ -20,7 +20,7 @@ export default class ProjectOverview extends Component {
                                     <TabPage title={'Recents'}>
                                         <ProjectList />
                                     </TabPage>
-                                    <TabPage title={'Open folder'}></TabPage>
+                                    <TabPage title={'Open folder'} onClick={() => this.openFolder()}></TabPage>
                                 </TabWindow>
                             </TabPage>
                             <TabPage title={'Clone'}>
@@ -34,5 +34,10 @@ export default class ProjectOverview extends Component {
                 </div>
             </div>
         );
+    }
+
+    async openFolder() {
+        const dialogResult = await window.api.openFolderDialog();
+        await window.api.openProject(dialogResult.path);
     }
 }
